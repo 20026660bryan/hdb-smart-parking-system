@@ -68,6 +68,12 @@ lottie_coding = load_lottieurl("https://assets4.lottiefiles.com/packages/lf20_sw
 
 def main():
     st.set_page_config(page_title="HDB Smart Parking System", page_icon=":red_car:", layout="wide")
+    hide_menu_style = """
+        <style>
+        #MainMenu {visibility: hidden;}
+        </style>
+        """
+    st.markdown(hide_menu_style, unsafe_allow_html=True)
 
     with st.sidebar:
         with st.container():
