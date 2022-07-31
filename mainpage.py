@@ -144,7 +144,7 @@ def main():
 
         motorcycle_pattern = 'FB[^IO][1-9][0-9]{0,3}[A-E | G-H | J-M | P | R-U | X-Z]'
 
-        car_pattern = 'S[B-N][A-G][1-9][0-9]{0,3}[A-E | G-H | J-M | P | R-U | X-Z]'
+        car_pattern = 'S[B-N][^IO][1-9][0-9]{0,3}[A-E | G-H | J-M | P | R-U | X-Z]'
 
         goods_pattern = 'GB[A-L][1-9][0-9]{0,3}[A-E | G-H | J-M | P | R-U | X-Z]'
 
