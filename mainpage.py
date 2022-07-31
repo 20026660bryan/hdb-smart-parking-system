@@ -189,21 +189,21 @@ def main():
 
         if end.day == 1 or end.day == 21 or end.day == 31:
 
-            title = '<p style="font-family:sans-serif; color:Black; font-size: 13px;"> Parking Expiry Date</p>'
+            title = '<p style="font-family:sans-serif; color:Black; font-size: 12px;"> Parking Expiry Date</p>'
 
             st.markdown(title, unsafe_allow_html=True)
             st.info(strendst)
 
         elif end.day == 2 or end.day == 22:
 
-            title = '<p style="font-family:sans-serif; color:Black; font-size: 13px;"> Parking Expiry Date</p>'
+            title = '<p style="font-family:sans-serif; color:Black; font-size: 12px;"> Parking Expiry Date</p>'
 
             st.markdown(title, unsafe_allow_html=True)
             st.info(strendnd)
 
         elif end.day == 3 or end.day == 23:
 
-            title = '<p style="font-family:sans-serif; color:Black; font-size: 13px;"> Parking Expiry Date</p>'
+            title = '<p style="font-family:sans-serif; color:Black; font-size: 12px;"> Parking Expiry Date</p>'
 
             st.markdown(title, unsafe_allow_html=True)
             st.info(strendrd)
