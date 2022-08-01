@@ -174,7 +174,7 @@ def main():
              errordur = '<p style="font-family:sans-serif; color:Red; font-size: 12px;">Invalid duration</p>'
              st.markdown(errordur, unsafe_allow_html=True)
              validdur = 0
-        elif dur > 0 and dur <= 999999:
+        elif dur > 0 and dur < 999999:
             validdur = 1
 
         #else:
@@ -270,8 +270,7 @@ def main():
         left_column, right_column = st.columns(2)
         with left_column:
             st.write('---')
-            if validdur == 1:
-                if valid == 1:
+            if validdur == 1 and valid == 1:
                     if st.button('Predict', disabled = False):
                         with st.spinner('Give us a moment...'):
                             time.sleep(2)
@@ -305,30 +304,30 @@ def main():
                             if vehicle == 0:
                                 if parkingtype == 'Seasonal Parking':
                                     st.success('Lot Number: ' + str(seasonal))
-                                    st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
+                                    st.success('Parking Fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
                                     st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
 
                                 elif parkingtype == 'Short Term Parking':
                                     st.success('Lot Number: ' + str(shortterm))
-                                    st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
+                                    st.success('Parking Fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
                                     st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
 
                             elif vehicle == 1:
 
                                 st.success('Lot Number: ' + str(motorcycle))
-                                st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
+                                st.success('Parking Fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
                                 st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
 
                             elif vehicle == 2:
                                 if parkingtype == 'Seasonal Parking':
                                     st.success('Lot Number: ' + str(seasonal))
-                                    st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
+                                    st.success('Parking Fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
                                     st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
 
                                 elif parkingtype == 'Short Term Parking':
 
                                     st.success('Lot Number: ' + str(shortterm))
-                                    st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
+                                    st.success('Parking Fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
                                     st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
                                     
                         #--- KNN ---
@@ -360,30 +359,30 @@ def main():
                             if vehicle == 0:
                                 if parkingtype == 'Seasonal Parking':
                                     st.success('Lot Number: ' + str(seasonal))
-                                    st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
+                                    st.success('Parking Fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
                                     st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
 
                                 elif parkingtype == 'Short Term Parking':
                                     st.success('Lot Number: ' + str(shortterm))
-                                    st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
+                                    st.success('Parking Fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
                                     st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
 
                             elif vehicle == 1:
 
                                 st.success('Lot Number: ' + str(motorcycle))
-                                st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
+                                st.success('Parking Fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
                                 st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
 
                             elif vehicle == 2:
                                 if parkingtype == 'Seasonal Parking':
                                     st.success('Lot Number: ' + str(seasonal))
-                                    st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
+                                    st.success('Parking Fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
                                     st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
 
                                 elif parkingtype == 'Short Term Parking':
 
                                     st.success('Lot Number: ' + str(shortterm))
-                                    st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
+                                    st.success('Parking Fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
                                     st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
 
                         #--- DECISION TREE ---
@@ -415,30 +414,30 @@ def main():
                             if vehicle == 0:
                                 if parkingtype == 'Seasonal Parking':
                                     st.success('Lot Number: ' + str(seasonal))
-                                    st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
+                                    st.success('Parking Fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
                                     st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
 
                                 elif parkingtype == 'Short Term Parking':
                                     st.success('Lot Number: ' + str(shortterm))
-                                    st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
+                                    st.success('Parking Fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
                                     st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
 
                             elif vehicle == 1:
 
                                 st.success('Lot Number: ' + str(motorcycle))
-                                st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
+                                st.success('Parking Fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
                                 st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
 
                             elif vehicle == 2:
                                 if parkingtype == 'Seasonal Parking':
                                     st.success('Lot Number: ' + str(seasonal))
-                                    st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
+                                    st.success('Parking Fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
                                     st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
 
                                 elif parkingtype == 'Short Term Parking':
 
                                     st.success('Lot Number: ' + str(shortterm))
-                                    st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
+                                    st.success('Parking Fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
                                     st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
  
                         #--- NAIVE BAYES ---
@@ -470,30 +469,30 @@ def main():
                             if vehicle == 0:
                                 if parkingtype == 'Seasonal Parking':
                                     st.success('Lot Number: ' + str(seasonal))
-                                    st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
+                                    st.success('Parking Fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
                                     st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
 
                                 elif parkingtype == 'Short Term Parking':
                                     st.success('Lot Number: ' + str(shortterm))
-                                    st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
+                                    st.success('Parking Fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
                                     st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
 
                             elif vehicle == 1:
 
                                 st.success('Lot Number: ' + str(motorcycle))
-                                st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
+                                st.success('Parking Fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
                                 st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
 
                             elif vehicle == 2:
                                 if parkingtype == 'Seasonal Parking':
                                     st.success('Lot Number: ' + str(seasonal))
-                                    st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
+                                    st.success('Parking Fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
                                     st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
 
                                 elif parkingtype == 'Short Term Parking':
 
                                     st.success('Lot Number: ' + str(shortterm))
-                                    st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
+                                    st.success('Parking Fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
                                     st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
                         
                         #--- RANDOM FOREST ---
@@ -525,30 +524,30 @@ def main():
                             if vehicle == 0:
                                 if parkingtype == 'Seasonal Parking':
                                     st.success('Lot Number: ' + str(seasonal))
-                                    st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
+                                    st.success('Parking Fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
                                     st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
 
                                 elif parkingtype == 'Short Term Parking':
                                     st.success('Lot Number: ' + str(shortterm))
-                                    st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
+                                    st.success('Parking Fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
                                     st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
 
                             elif vehicle == 1:
 
                                 st.success('Lot Number: ' + str(motorcycle))
-                                st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
+                                st.success('Parking Fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
                                 st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
 
                             elif vehicle == 2:
                                 if parkingtype == 'Seasonal Parking':
                                     st.success('Lot Number: ' + str(seasonal))
-                                    st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
+                                    st.success('Parking Fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
                                     st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
 
                                 elif parkingtype == 'Short Term Parking':
 
                                     st.success('Lot Number: ' + str(shortterm))
-                                    st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
+                                    st.success('Parking Fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
                                     st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
                         
                         #--- LOGISTIC REGRESSION ---
@@ -580,30 +579,30 @@ def main():
                             if vehicle == 0:
                                 if parkingtype == 'Seasonal Parking':
                                     st.success('Lot Number: ' + str(seasonal))
-                                    st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
+                                    st.success('Parking Fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
                                     st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
 
                                 elif parkingtype == 'Short Term Parking':
                                     st.success('Lot Number: ' + str(shortterm))
-                                    st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
+                                    st.success('Parking Fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
                                     st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
 
                             elif vehicle == 1:
 
                                 st.success('Lot Number: ' + str(motorcycle))
-                                st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
+                                st.success('Parking Fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
                                 st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
 
                             elif vehicle == 2:
                                 if parkingtype == 'Seasonal Parking':
                                     st.success('Lot Number: ' + str(seasonal))
-                                    st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
+                                    st.success('Parking Fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
                                     st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
 
                                 elif parkingtype == 'Short Term Parking':
 
                                     st.success('Lot Number: ' + str(shortterm))
-                                    st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
+                                    st.success('Parking Fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
                                     st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
                                     
                         #--- SVM ---
@@ -635,12 +634,12 @@ def main():
                             if vehicle == 0:
                                 if parkingtype == 'Seasonal Parking':
                                     st.success('Lot Number: ' + str(seasonal))
-                                    st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
+                                    st.success('Parking Fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
                                     st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
 
                                 elif parkingtype == 'Short Term Parking':
                                     st.success('Lot Number: ' + str(shortterm))
-                                    st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
+                                    st.success('Parking Fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
                                     st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
 
                             elif vehicle == 1:
@@ -652,13 +651,13 @@ def main():
                             elif vehicle == 2:
                                 if parkingtype == 'Seasonal Parking':
                                     st.success('Lot Number: ' + str(seasonal))
-                                    st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
+                                    st.success('Parking Fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
                                     st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
 
                                 elif parkingtype == 'Short Term Parking':
 
                                     st.success('Lot Number: ' + str(shortterm))
-                                    st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
+                                    st.success('Parking Fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
                                     st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
                         
                         #--- MLP ---
@@ -690,30 +689,30 @@ def main():
                             if vehicle == 0:
                                 if parkingtype == 'Seasonal Parking':
                                     st.success('Lot Number: ' + str(seasonal))
-                                    st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
+                                    st.success('Parking Fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
                                     st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
 
                                 elif parkingtype == 'Short Term Parking':
                                     st.success('Lot Number: ' + str(shortterm))
-                                    st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
+                                    st.success('Parking Fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
                                     st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
 
                             elif vehicle == 1:
 
                                 st.success('Lot Number: ' + str(motorcycle))
-                                st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
+                                st.success('Parking Fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
                                 st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
 
                             elif vehicle == 2:
                                 if parkingtype == 'Seasonal Parking':
                                     st.success('Lot Number: ' + str(seasonal))
-                                    st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
+                                    st.success('Parking Fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
                                     st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
 
                                 elif parkingtype == 'Short Term Parking':
 
                                     st.success('Lot Number: ' + str(shortterm))
-                                    st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
+                                    st.success('Parking Fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
                                     st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
 
 
