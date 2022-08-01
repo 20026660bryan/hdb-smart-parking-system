@@ -176,8 +176,12 @@ def main():
         end = dtnow + timedelta(minutes = dur)
         total_hours = dur // 60
         total_mins = dur % 60
-
-        st.info('{} hours {} minutes'.format(total_hours, total_mins))
+        
+        if dur == 0:
+            blank = ''
+            st.markdown(blank, unsafe_allow_html=True)
+        else:
+            st.code('{} hours {} minutes'.format(total_hours, total_mins))
         # st.code('{} hours {} minutes'.format(total_hours, total_mins),language="python")
         
         #--- Method to print parking expiry date based on duration input ---
