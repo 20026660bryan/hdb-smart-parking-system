@@ -149,7 +149,7 @@ def main():
                                 if prefix[-1] == b:
                                     checksumvalid = 1
 
-            if checksumvalid == 0:
+            if checksumvalid == 0 or len(prefix) != 4:
                 errorplate = '<p style="font-family:sans-serif; color:Red; font-size: 12px;">Invalid license plate</p>'
                 st.markdown(errorplate, unsafe_allow_html=True)
         
