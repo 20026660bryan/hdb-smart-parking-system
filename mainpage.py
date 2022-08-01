@@ -246,18 +246,18 @@ def main():
                             
                             #--- XGBOOST ---
                         if model == 'Default(XGBoost)':
-                            predict = xgbparkingprediction(sessionstart, sessionend, totalcharge, dur, effectivecharge, vehicle)
+                            xgbparkingprediction(sessionstart, sessionend, totalcharge, dur, effectivecharge, vehicle)
                             if vehicle == 0:
-                                if predict == 0:
+                                if parkingpredictxgb == 0:
                                     parkingtype = 'Short Term Parking'
-                                elif predict == 1:
+                                elif parkingpredictxgb == 1:
                                     parkingtype = 'Seasonal Parking'
                             elif vehicle == 1:
                                         parkingtype = 'Motorcycle Parking'
                             elif vehicle == 2:
-                                if predict == 0:
+                                if parkingpredictxgb == 0:
                                     parkingtype = 'Short Term Parking'
-                                elif predict == 1:
+                                elif parkingpredictxgb == 1:
                                     parkingtype = 'Seasonal Parking'
 
                             st.write("---")
