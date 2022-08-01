@@ -9,8 +9,7 @@ import random
 import time
 import requests
 from streamlit_lottie import st_lottie
-from prediction import KNNparkingprediction, dtparkingprediction, nbparkingprediction, rfparkingprediction,
-lrparkingprediction, svmparkingprediction, mlpparkingprediction, xgbparkingprediction
+from prediction import KNNparkingprediction, dtparkingprediction, nbparkingprediction, rfparkingprediction, lrparkingprediction, svmparkingprediction, mlpparkingprediction, xgbparkingprediction
 
 
 #--- LOAD MODELS ---
