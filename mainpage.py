@@ -171,8 +171,7 @@ def main():
         if dur > 999999:
              errordur = '<p style="font-family:sans-serif; color:Red; font-size: 12px;">Invalid duration</p>'
              st.markdown(errordur, unsafe_allow_html=True)
-             blank = ''
-             st.markdown(blank, unsafe_allow_html=True)
+             st.code('')
 
         #else:
         end = dtnow + timedelta(minutes = dur)
