@@ -265,451 +265,450 @@ def main():
         with left_column:
             st.write('---')
             if checksumvalid == 1:
-                if valid == 1:
-                    if dur != 0:
-                        if st.button('Predict', disabled = False):
-                            with st.spinner('Give us a moment...'):
-                                time.sleep(2)
+                if valid == 1 and dur > 0:
+                    if st.button('Predict', disabled = False):
+                        with st.spinner('Give us a moment...'):
+                            time.sleep(2)
+                            
+                            #--- XGBOOST ---
+                        if model == 'Default(XGBoost)':
+                            predict = xgbparkingprediction(sessionstart, sessionend, totalcharge, dur, effectivecharge, vehicle)
+                            if vehicle == 0:
+                                if predict == 0:
+                                    parkingtype = 'Short Term Parking'
+                                elif predict == 1:
+                                    parkingtype = 'Seasonal Parking'
+                            elif vehicle == 1:
+                                        parkingtype = 'Motorcycle Parking'
+                            elif vehicle == 2:
+                                if predict == 0:
+                                    parkingtype = 'Short Term Parking'
+                                elif predict == 1:
+                                    parkingtype = 'Seasonal Parking'
 
-                                #--- XGBOOST ---
-                            if model == 'Default(XGBoost)':
-                                predict = xgbparkingprediction(sessionstart, sessionend, totalcharge, dur, effectivecharge, vehicle)
-                                if vehicle == 0:
-                                    if predict == 0:
-                                        parkingtype = 'Short Term Parking'
-                                    elif predict == 1:
-                                        parkingtype = 'Seasonal Parking'
-                                elif vehicle == 1:
-                                            parkingtype = 'Motorcycle Parking'
-                                elif vehicle == 2:
-                                    if predict == 0:
-                                        parkingtype = 'Short Term Parking'
-                                    elif predict == 1:
-                                        parkingtype = 'Seasonal Parking'
+                            st.write("---")
+                            st.subheader('License Plate: ' + license)
+                            # st.write('Parking Type: ' + parkingtype)
 
-                                st.write("---")
-                                st.subheader('License Plate: ' + license)
-                                # st.write('Parking Type: ' + parkingtype)
+                            st.success(parkingtype)
 
-                                st.success(parkingtype)
+                            seasonal = random.randint(1, 160)
+                            shortterm = random.randint(161, 480)
+                            motorcycle = random.randint(481, 500)
 
-                                seasonal = random.randint(1, 160)
-                                shortterm = random.randint(161, 480)
-                                motorcycle = random.randint(481, 500)
-
-                                if vehicle == 0:
-                                    if parkingtype == 'Seasonal Parking':
-                                        st.success('Lot Number: ' + str(seasonal))
-                                        st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
-                                        st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
-
-                                    elif parkingtype == 'Short Term Parking':
-                                        st.success('Lot Number: ' + str(shortterm))
-                                        st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
-                                        st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
-
-                                elif vehicle == 1:
-
-                                    st.success('Lot Number: ' + str(motorcycle))
+                            if vehicle == 0:
+                                if parkingtype == 'Seasonal Parking':
+                                    st.success('Lot Number: ' + str(seasonal))
                                     st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
                                     st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
 
-                                elif vehicle == 2:
-                                    if parkingtype == 'Seasonal Parking':
-                                        st.success('Lot Number: ' + str(seasonal))
-                                        st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
-                                        st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
-
-                                    elif parkingtype == 'Short Term Parking':
-
-                                        st.success('Lot Number: ' + str(shortterm))
-                                        st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
-                                        st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
-
-                            #--- KNN ---
-                            elif model == 'K-Nearest Neighbours (KNN)':
-                                predict = KNNparkingprediction(sessionstart, sessionend, totalcharge, dur, effectivecharge, vehicle)
-                                if vehicle == 0:
-                                    if predict == 0:
-                                        parkingtype = 'Short Term Parking'
-                                    elif predict == 1:
-                                        parkingtype = 'Seasonal Parking'
-                                elif vehicle == 1:
-                                            parkingtype = 'Motorcycle Parking'
-                                elif vehicle == 2:
-                                    if predict == 0:
-                                        parkingtype = 'Short Term Parking'
-                                    elif predict == 1:
-                                        parkingtype = 'Seasonal Parking'
-
-                                st.write("---")
-                                st.subheader('License Plate: ' + license)
-                                # st.write('Parking Type: ' + parkingtype)
-
-                                st.success(parkingtype)
-
-                                seasonal = random.randint(1, 160)
-                                shortterm = random.randint(161, 480)
-                                motorcycle = random.randint(481, 500)
-
-                                if vehicle == 0:
-                                    if parkingtype == 'Seasonal Parking':
-                                        st.success('Lot Number: ' + str(seasonal))
-                                        st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
-                                        st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
-
-                                    elif parkingtype == 'Short Term Parking':
-                                        st.success('Lot Number: ' + str(shortterm))
-                                        st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
-                                        st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
-
-                                elif vehicle == 1:
-
-                                    st.success('Lot Number: ' + str(motorcycle))
+                                elif parkingtype == 'Short Term Parking':
+                                    st.success('Lot Number: ' + str(shortterm))
                                     st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
                                     st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
 
-                                elif vehicle == 2:
-                                    if parkingtype == 'Seasonal Parking':
-                                        st.success('Lot Number: ' + str(seasonal))
-                                        st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
-                                        st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
+                            elif vehicle == 1:
 
-                                    elif parkingtype == 'Short Term Parking':
+                                st.success('Lot Number: ' + str(motorcycle))
+                                st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
+                                st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
 
-                                        st.success('Lot Number: ' + str(shortterm))
-                                        st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
-                                        st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
-
-                            #--- DECISION TREE ---
-                            elif model == 'Decision Tree':
-                                predict = dtparkingprediction(sessionstart, sessionend, totalcharge, dur, effectivecharge, vehicle)
-                                if vehicle == 0:
-                                    if predict == 0:
-                                        parkingtype = 'Short Term Parking'
-                                    elif predict == 1:
-                                        parkingtype = 'Seasonal Parking'
-                                elif vehicle == 1:
-                                            parkingtype = 'Motorcycle Parking'
-                                elif vehicle == 2:
-                                    if predict == 0:
-                                        parkingtype = 'Short Term Parking'
-                                    elif predict == 1:
-                                        parkingtype = 'Seasonal Parking'
-
-                                st.write("---")
-                                st.subheader('License Plate: ' + license)
-                                # st.write('Parking Type: ' + parkingtype)
-
-                                st.success(parkingtype)
-
-                                seasonal = random.randint(1, 160)
-                                shortterm = random.randint(161, 480)
-                                motorcycle = random.randint(481, 500)
-
-                                if vehicle == 0:
-                                    if parkingtype == 'Seasonal Parking':
-                                        st.success('Lot Number: ' + str(seasonal))
-                                        st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
-                                        st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
-
-                                    elif parkingtype == 'Short Term Parking':
-                                        st.success('Lot Number: ' + str(shortterm))
-                                        st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
-                                        st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
-
-                                elif vehicle == 1:
-
-                                    st.success('Lot Number: ' + str(motorcycle))
+                            elif vehicle == 2:
+                                if parkingtype == 'Seasonal Parking':
+                                    st.success('Lot Number: ' + str(seasonal))
                                     st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
                                     st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
 
-                                elif vehicle == 2:
-                                    if parkingtype == 'Seasonal Parking':
-                                        st.success('Lot Number: ' + str(seasonal))
-                                        st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
-                                        st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
+                                elif parkingtype == 'Short Term Parking':
 
-                                    elif parkingtype == 'Short Term Parking':
+                                    st.success('Lot Number: ' + str(shortterm))
+                                    st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
+                                    st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
+                                    
+                        #--- KNN ---
+                        elif model == 'K-Nearest Neighbours (KNN)':
+                            predict = KNNparkingprediction(sessionstart, sessionend, totalcharge, dur, effectivecharge, vehicle)
+                            if vehicle == 0:
+                                if predict == 0:
+                                    parkingtype = 'Short Term Parking'
+                                elif predict == 1:
+                                    parkingtype = 'Seasonal Parking'
+                            elif vehicle == 1:
+                                        parkingtype = 'Motorcycle Parking'
+                            elif vehicle == 2:
+                                if predict == 0:
+                                    parkingtype = 'Short Term Parking'
+                                elif predict == 1:
+                                    parkingtype = 'Seasonal Parking'
 
-                                        st.success('Lot Number: ' + str(shortterm))
-                                        st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
-                                        st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
+                            st.write("---")
+                            st.subheader('License Plate: ' + license)
+                            # st.write('Parking Type: ' + parkingtype)
 
-                            #--- NAIVE BAYES ---
-                            elif model == 'Naive Bayes':
-                                predict = nbparkingprediction(sessionstart, sessionend, totalcharge, dur, effectivecharge, vehicle)
-                                if vehicle == 0:
-                                    if predict == 0:
-                                        parkingtype = 'Short Term Parking'
-                                    elif predict == 1:
-                                        parkingtype = 'Seasonal Parking'
-                                elif vehicle == 1:
-                                            parkingtype = 'Motorcycle Parking'
-                                elif vehicle == 2:
-                                    if predict == 0:
-                                        parkingtype = 'Short Term Parking'
-                                    elif predict == 1:
-                                        parkingtype = 'Seasonal Parking'
+                            st.success(parkingtype)
 
-                                st.write("---")
-                                st.subheader('License Plate: ' + license)
-                                # st.write('Parking Type: ' + parkingtype)
+                            seasonal = random.randint(1, 160)
+                            shortterm = random.randint(161, 480)
+                            motorcycle = random.randint(481, 500)
 
-                                st.success(parkingtype)
-
-                                seasonal = random.randint(1, 160)
-                                shortterm = random.randint(161, 480)
-                                motorcycle = random.randint(481, 500)
-
-                                if vehicle == 0:
-                                    if parkingtype == 'Seasonal Parking':
-                                        st.success('Lot Number: ' + str(seasonal))
-                                        st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
-                                        st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
-
-                                    elif parkingtype == 'Short Term Parking':
-                                        st.success('Lot Number: ' + str(shortterm))
-                                        st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
-                                        st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
-
-                                elif vehicle == 1:
-
-                                    st.success('Lot Number: ' + str(motorcycle))
+                            if vehicle == 0:
+                                if parkingtype == 'Seasonal Parking':
+                                    st.success('Lot Number: ' + str(seasonal))
                                     st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
                                     st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
 
-                                elif vehicle == 2:
-                                    if parkingtype == 'Seasonal Parking':
-                                        st.success('Lot Number: ' + str(seasonal))
-                                        st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
-                                        st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
-
-                                    elif parkingtype == 'Short Term Parking':
-
-                                        st.success('Lot Number: ' + str(shortterm))
-                                        st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
-                                        st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
-
-                            #--- RANDOM FOREST ---
-                            elif model == 'Random Forest':
-                                predict = rfparkingprediction(sessionstart, sessionend, totalcharge, dur, effectivecharge, vehicle)
-                                if vehicle == 0:
-                                    if predict == 0:
-                                        parkingtype = 'Short Term Parking'
-                                    elif predict == 1:
-                                        parkingtype = 'Seasonal Parking'
-                                elif vehicle == 1:
-                                            parkingtype = 'Motorcycle Parking'
-                                elif vehicle == 2:
-                                    if predict == 0:
-                                        parkingtype = 'Short Term Parking'
-                                    elif predict == 1:
-                                        parkingtype = 'Seasonal Parking'
-
-                                st.write("---")
-                                st.subheader('License Plate: ' + license)
-                                # st.write('Parking Type: ' + parkingtype)
-
-                                st.success(parkingtype)
-
-                                seasonal = random.randint(1, 160)
-                                shortterm = random.randint(161, 480)
-                                motorcycle = random.randint(481, 500)
-
-                                if vehicle == 0:
-                                    if parkingtype == 'Seasonal Parking':
-                                        st.success('Lot Number: ' + str(seasonal))
-                                        st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
-                                        st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
-
-                                    elif parkingtype == 'Short Term Parking':
-                                        st.success('Lot Number: ' + str(shortterm))
-                                        st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
-                                        st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
-
-                                elif vehicle == 1:
-
-                                    st.success('Lot Number: ' + str(motorcycle))
+                                elif parkingtype == 'Short Term Parking':
+                                    st.success('Lot Number: ' + str(shortterm))
                                     st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
                                     st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
 
-                                elif vehicle == 2:
-                                    if parkingtype == 'Seasonal Parking':
-                                        st.success('Lot Number: ' + str(seasonal))
-                                        st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
-                                        st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
+                            elif vehicle == 1:
 
-                                    elif parkingtype == 'Short Term Parking':
+                                st.success('Lot Number: ' + str(motorcycle))
+                                st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
+                                st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
 
-                                        st.success('Lot Number: ' + str(shortterm))
-                                        st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
-                                        st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
-
-                            #--- LOGISTIC REGRESSION ---
-                            elif model == 'Logistic Regression':
-                                predict = lrparkingprediction(sessionstart, sessionend, totalcharge, dur, effectivecharge, vehicle)
-                                if vehicle == 0:
-                                    if predict == 0:
-                                        parkingtype = 'Short Term Parking'
-                                    elif predict == 1:
-                                        parkingtype = 'Seasonal Parking'
-                                elif vehicle == 1:
-                                            parkingtype = 'Motorcycle Parking'
-                                elif vehicle == 2:
-                                    if predict == 0:
-                                        parkingtype = 'Short Term Parking'
-                                    elif predict == 1:
-                                        parkingtype = 'Seasonal Parking'
-
-                                st.write("---")
-                                st.subheader('License Plate: ' + license)
-                                # st.write('Parking Type: ' + parkingtype)
-
-                                st.success(parkingtype)
-
-                                seasonal = random.randint(1, 160)
-                                shortterm = random.randint(161, 480)
-                                motorcycle = random.randint(481, 500)
-
-                                if vehicle == 0:
-                                    if parkingtype == 'Seasonal Parking':
-                                        st.success('Lot Number: ' + str(seasonal))
-                                        st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
-                                        st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
-
-                                    elif parkingtype == 'Short Term Parking':
-                                        st.success('Lot Number: ' + str(shortterm))
-                                        st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
-                                        st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
-
-                                elif vehicle == 1:
-
-                                    st.success('Lot Number: ' + str(motorcycle))
+                            elif vehicle == 2:
+                                if parkingtype == 'Seasonal Parking':
+                                    st.success('Lot Number: ' + str(seasonal))
                                     st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
                                     st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
 
-                                elif vehicle == 2:
-                                    if parkingtype == 'Seasonal Parking':
-                                        st.success('Lot Number: ' + str(seasonal))
-                                        st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
-                                        st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
+                                elif parkingtype == 'Short Term Parking':
 
-                                    elif parkingtype == 'Short Term Parking':
-
-                                        st.success('Lot Number: ' + str(shortterm))
-                                        st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
-                                        st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
-
-                            #--- SVM ---
-                            elif model == 'SVM':
-                                predict = svmparkingprediction(sessionstart, sessionend, totalcharge, dur, effectivecharge, vehicle)
-                                if vehicle == 0:
-                                    if predict == 0:
-                                        parkingtype = 'Short Term Parking'
-                                    elif predict == 1:
-                                        parkingtype = 'Seasonal Parking'
-                                elif vehicle == 1:
-                                            parkingtype = 'Motorcycle Parking'
-                                elif vehicle == 2:
-                                    if predict == 0:
-                                        parkingtype = 'Short Term Parking'
-                                    elif predict == 1:
-                                        parkingtype = 'Seasonal Parking'
-
-                                st.write("---")
-                                st.subheader('License Plate: ' + license)
-                                # st.write('Parking Type: ' + parkingtype)
-
-                                st.success(parkingtype)
-
-                                seasonal = random.randint(1, 160)
-                                shortterm = random.randint(161, 480)
-                                motorcycle = random.randint(481, 500)
-
-                                if vehicle == 0:
-                                    if parkingtype == 'Seasonal Parking':
-                                        st.success('Lot Number: ' + str(seasonal))
-                                        st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
-                                        st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
-
-                                    elif parkingtype == 'Short Term Parking':
-                                        st.success('Lot Number: ' + str(shortterm))
-                                        st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
-                                        st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
-
-                                elif vehicle == 1:
-
-                                    st.success('Lot Number: ' + str(motorcycle))
+                                    st.success('Lot Number: ' + str(shortterm))
                                     st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
                                     st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
 
-                                elif vehicle == 2:
-                                    if parkingtype == 'Seasonal Parking':
-                                        st.success('Lot Number: ' + str(seasonal))
-                                        st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
-                                        st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
+                        #--- DECISION TREE ---
+                        elif model == 'Decision Tree':
+                            predict = dtparkingprediction(sessionstart, sessionend, totalcharge, dur, effectivecharge, vehicle)
+                            if vehicle == 0:
+                                if predict == 0:
+                                    parkingtype = 'Short Term Parking'
+                                elif predict == 1:
+                                    parkingtype = 'Seasonal Parking'
+                            elif vehicle == 1:
+                                        parkingtype = 'Motorcycle Parking'
+                            elif vehicle == 2:
+                                if predict == 0:
+                                    parkingtype = 'Short Term Parking'
+                                elif predict == 1:
+                                    parkingtype = 'Seasonal Parking'
 
-                                    elif parkingtype == 'Short Term Parking':
+                            st.write("---")
+                            st.subheader('License Plate: ' + license)
+                            # st.write('Parking Type: ' + parkingtype)
 
-                                        st.success('Lot Number: ' + str(shortterm))
-                                        st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
-                                        st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
+                            st.success(parkingtype)
 
-                            #--- MLP ---
-                            elif model == 'MLP':
-                                predict = mlpparkingprediction(sessionstart, sessionend, totalcharge, dur, effectivecharge, vehicle)
-                                if vehicle == 0:
-                                    if predict == 0:
-                                        parkingtype = 'Short Term Parking'
-                                    elif predict == 1:
-                                        parkingtype = 'Seasonal Parking'
-                                elif vehicle == 1:
-                                            parkingtype = 'Motorcycle Parking'
-                                elif vehicle == 2:
-                                    if predict == 0:
-                                        parkingtype = 'Short Term Parking'
-                                    elif predict == 1:
-                                        parkingtype = 'Seasonal Parking'
+                            seasonal = random.randint(1, 160)
+                            shortterm = random.randint(161, 480)
+                            motorcycle = random.randint(481, 500)
 
-                                st.write("---")
-                                st.subheader('License Plate: ' + license)
-                                # st.write('Parking Type: ' + parkingtype)
-
-                                st.success(parkingtype)
-
-                                seasonal = random.randint(1, 160)
-                                shortterm = random.randint(161, 480)
-                                motorcycle = random.randint(481, 500)
-
-                                if vehicle == 0:
-                                    if parkingtype == 'Seasonal Parking':
-                                        st.success('Lot Number: ' + str(seasonal))
-                                        st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
-                                        st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
-
-                                    elif parkingtype == 'Short Term Parking':
-                                        st.success('Lot Number: ' + str(shortterm))
-                                        st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
-                                        st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
-
-                                elif vehicle == 1:
-
-                                    st.success('Lot Number: ' + str(motorcycle))
+                            if vehicle == 0:
+                                if parkingtype == 'Seasonal Parking':
+                                    st.success('Lot Number: ' + str(seasonal))
                                     st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
                                     st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
 
-                                elif vehicle == 2:
-                                    if parkingtype == 'Seasonal Parking':
-                                        st.success('Lot Number: ' + str(seasonal))
-                                        st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
-                                        st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
+                                elif parkingtype == 'Short Term Parking':
+                                    st.success('Lot Number: ' + str(shortterm))
+                                    st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
+                                    st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
 
-                                    elif parkingtype == 'Short Term Parking':
+                            elif vehicle == 1:
 
-                                        st.success('Lot Number: ' + str(shortterm))
-                                        st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
-                                        st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
+                                st.success('Lot Number: ' + str(motorcycle))
+                                st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
+                                st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
+
+                            elif vehicle == 2:
+                                if parkingtype == 'Seasonal Parking':
+                                    st.success('Lot Number: ' + str(seasonal))
+                                    st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
+                                    st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
+
+                                elif parkingtype == 'Short Term Parking':
+
+                                    st.success('Lot Number: ' + str(shortterm))
+                                    st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
+                                    st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
+ 
+                        #--- NAIVE BAYES ---
+                        elif model == 'Naive Bayes':
+                            predict = nbparkingprediction(sessionstart, sessionend, totalcharge, dur, effectivecharge, vehicle)
+                            if vehicle == 0:
+                                if predict == 0:
+                                    parkingtype = 'Short Term Parking'
+                                elif predict == 1:
+                                    parkingtype = 'Seasonal Parking'
+                            elif vehicle == 1:
+                                        parkingtype = 'Motorcycle Parking'
+                            elif vehicle == 2:
+                                if predict == 0:
+                                    parkingtype = 'Short Term Parking'
+                                elif predict == 1:
+                                    parkingtype = 'Seasonal Parking'
+
+                            st.write("---")
+                            st.subheader('License Plate: ' + license)
+                            # st.write('Parking Type: ' + parkingtype)
+
+                            st.success(parkingtype)
+
+                            seasonal = random.randint(1, 160)
+                            shortterm = random.randint(161, 480)
+                            motorcycle = random.randint(481, 500)
+
+                            if vehicle == 0:
+                                if parkingtype == 'Seasonal Parking':
+                                    st.success('Lot Number: ' + str(seasonal))
+                                    st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
+                                    st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
+
+                                elif parkingtype == 'Short Term Parking':
+                                    st.success('Lot Number: ' + str(shortterm))
+                                    st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
+                                    st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
+
+                            elif vehicle == 1:
+
+                                st.success('Lot Number: ' + str(motorcycle))
+                                st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
+                                st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
+
+                            elif vehicle == 2:
+                                if parkingtype == 'Seasonal Parking':
+                                    st.success('Lot Number: ' + str(seasonal))
+                                    st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
+                                    st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
+
+                                elif parkingtype == 'Short Term Parking':
+
+                                    st.success('Lot Number: ' + str(shortterm))
+                                    st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
+                                    st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
+                        
+                        #--- RANDOM FOREST ---
+                        elif model == 'Random Forest':
+                            predict = rfparkingprediction(sessionstart, sessionend, totalcharge, dur, effectivecharge, vehicle)
+                            if vehicle == 0:
+                                if predict == 0:
+                                    parkingtype = 'Short Term Parking'
+                                elif predict == 1:
+                                    parkingtype = 'Seasonal Parking'
+                            elif vehicle == 1:
+                                        parkingtype = 'Motorcycle Parking'
+                            elif vehicle == 2:
+                                if predict == 0:
+                                    parkingtype = 'Short Term Parking'
+                                elif predict == 1:
+                                    parkingtype = 'Seasonal Parking'
+
+                            st.write("---")
+                            st.subheader('License Plate: ' + license)
+                            # st.write('Parking Type: ' + parkingtype)
+
+                            st.success(parkingtype)
+
+                            seasonal = random.randint(1, 160)
+                            shortterm = random.randint(161, 480)
+                            motorcycle = random.randint(481, 500)
+
+                            if vehicle == 0:
+                                if parkingtype == 'Seasonal Parking':
+                                    st.success('Lot Number: ' + str(seasonal))
+                                    st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
+                                    st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
+
+                                elif parkingtype == 'Short Term Parking':
+                                    st.success('Lot Number: ' + str(shortterm))
+                                    st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
+                                    st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
+
+                            elif vehicle == 1:
+
+                                st.success('Lot Number: ' + str(motorcycle))
+                                st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
+                                st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
+
+                            elif vehicle == 2:
+                                if parkingtype == 'Seasonal Parking':
+                                    st.success('Lot Number: ' + str(seasonal))
+                                    st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
+                                    st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
+
+                                elif parkingtype == 'Short Term Parking':
+
+                                    st.success('Lot Number: ' + str(shortterm))
+                                    st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
+                                    st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
+                        
+                        #--- LOGISTIC REGRESSION ---
+                        elif model == 'Logistic Regression':
+                            predict = lrparkingprediction(sessionstart, sessionend, totalcharge, dur, effectivecharge, vehicle)
+                            if vehicle == 0:
+                                if predict == 0:
+                                    parkingtype = 'Short Term Parking'
+                                elif predict == 1:
+                                    parkingtype = 'Seasonal Parking'
+                            elif vehicle == 1:
+                                        parkingtype = 'Motorcycle Parking'
+                            elif vehicle == 2:
+                                if predict == 0:
+                                    parkingtype = 'Short Term Parking'
+                                elif predict == 1:
+                                    parkingtype = 'Seasonal Parking'
+
+                            st.write("---")
+                            st.subheader('License Plate: ' + license)
+                            # st.write('Parking Type: ' + parkingtype)
+
+                            st.success(parkingtype)
+
+                            seasonal = random.randint(1, 160)
+                            shortterm = random.randint(161, 480)
+                            motorcycle = random.randint(481, 500)
+
+                            if vehicle == 0:
+                                if parkingtype == 'Seasonal Parking':
+                                    st.success('Lot Number: ' + str(seasonal))
+                                    st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
+                                    st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
+
+                                elif parkingtype == 'Short Term Parking':
+                                    st.success('Lot Number: ' + str(shortterm))
+                                    st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
+                                    st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
+
+                            elif vehicle == 1:
+
+                                st.success('Lot Number: ' + str(motorcycle))
+                                st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
+                                st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
+
+                            elif vehicle == 2:
+                                if parkingtype == 'Seasonal Parking':
+                                    st.success('Lot Number: ' + str(seasonal))
+                                    st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
+                                    st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
+
+                                elif parkingtype == 'Short Term Parking':
+
+                                    st.success('Lot Number: ' + str(shortterm))
+                                    st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
+                                    st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
+                                    
+                        #--- SVM ---
+                        elif model == 'SVM':
+                            predict = svmparkingprediction(sessionstart, sessionend, totalcharge, dur, effectivecharge, vehicle)
+                            if vehicle == 0:
+                                if predict == 0:
+                                    parkingtype = 'Short Term Parking'
+                                elif predict == 1:
+                                    parkingtype = 'Seasonal Parking'
+                            elif vehicle == 1:
+                                        parkingtype = 'Motorcycle Parking'
+                            elif vehicle == 2:
+                                if predict == 0:
+                                    parkingtype = 'Short Term Parking'
+                                elif predict == 1:
+                                    parkingtype = 'Seasonal Parking'
+
+                            st.write("---")
+                            st.subheader('License Plate: ' + license)
+                            # st.write('Parking Type: ' + parkingtype)
+
+                            st.success(parkingtype)
+
+                            seasonal = random.randint(1, 160)
+                            shortterm = random.randint(161, 480)
+                            motorcycle = random.randint(481, 500)
+
+                            if vehicle == 0:
+                                if parkingtype == 'Seasonal Parking':
+                                    st.success('Lot Number: ' + str(seasonal))
+                                    st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
+                                    st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
+
+                                elif parkingtype == 'Short Term Parking':
+                                    st.success('Lot Number: ' + str(shortterm))
+                                    st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
+                                    st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
+
+                            elif vehicle == 1:
+
+                                st.success('Lot Number: ' + str(motorcycle))
+                                st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
+                                st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
+
+                            elif vehicle == 2:
+                                if parkingtype == 'Seasonal Parking':
+                                    st.success('Lot Number: ' + str(seasonal))
+                                    st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
+                                    st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
+
+                                elif parkingtype == 'Short Term Parking':
+
+                                    st.success('Lot Number: ' + str(shortterm))
+                                    st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
+                                    st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
+                        
+                        #--- MLP ---
+                        elif model == 'MLP':
+                            predict = mlpparkingprediction(sessionstart, sessionend, totalcharge, dur, effectivecharge, vehicle)
+                            if vehicle == 0:
+                                if predict == 0:
+                                    parkingtype = 'Short Term Parking'
+                                elif predict == 1:
+                                    parkingtype = 'Seasonal Parking'
+                            elif vehicle == 1:
+                                        parkingtype = 'Motorcycle Parking'
+                            elif vehicle == 2:
+                                if predict == 0:
+                                    parkingtype = 'Short Term Parking'
+                                elif predict == 1:
+                                    parkingtype = 'Seasonal Parking'
+
+                            st.write("---")
+                            st.subheader('License Plate: ' + license)
+                            # st.write('Parking Type: ' + parkingtype)
+
+                            st.success(parkingtype)
+
+                            seasonal = random.randint(1, 160)
+                            shortterm = random.randint(161, 480)
+                            motorcycle = random.randint(481, 500)
+
+                            if vehicle == 0:
+                                if parkingtype == 'Seasonal Parking':
+                                    st.success('Lot Number: ' + str(seasonal))
+                                    st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
+                                    st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
+
+                                elif parkingtype == 'Short Term Parking':
+                                    st.success('Lot Number: ' + str(shortterm))
+                                    st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
+                                    st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
+
+                            elif vehicle == 1:
+
+                                st.success('Lot Number: ' + str(motorcycle))
+                                st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
+                                st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
+
+                            elif vehicle == 2:
+                                if parkingtype == 'Seasonal Parking':
+                                    st.success('Lot Number: ' + str(seasonal))
+                                    st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
+                                    st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
+
+                                elif parkingtype == 'Short Term Parking':
+
+                                    st.success('Lot Number: ' + str(shortterm))
+                                    st.success('Parking fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
+                                    st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
 
 
             else:
