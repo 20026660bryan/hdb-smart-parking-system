@@ -175,59 +175,57 @@ def main():
              st.markdown(errordur, unsafe_allow_html=True)
              durvalid = 0
         elif dur > 0 and dur < 999999:
-            durvalid = 1
+             durvalid = 1
            
-            end = dtnow + timedelta(minutes = dur)
-            total_hours = dur // 60
-            total_mins = dur % 60
-            st.code('{} hours {} minutes'.format(total_hours, total_mins))
+             end = dtnow + timedelta(minutes = dur)
+             total_hours = dur // 60
+             total_mins = dur % 60
+             st.code('{} hours {} minutes'.format(total_hours, total_mins))
             
-            #--- Method to print parking expiry date based on duration input ---
-            strendth = end.strftime('%H:%M ' + '| ' +  '%d' + 'th ' + '%B %Y')
-            strendst = end.strftime('%H:%M ' + '| ' +  '%d' + 'st ' + '%B %Y')
-            strendnd = end.strftime('%H:%M ' + '| ' +  '%d' + 'nd ' + '%B %Y')
-            strendrd = end.strftime('%H:%M ' + '| ' +  '%d' + 'rd ' + '%B %Y')
-            dtend = datetime.strptime(strendth, '%H:%M ' + '| ' + '%d' + 'th ' + '%B %Y')
+             #--- Method to print parking expiry date based on duration input ---
+             strendth = end.strftime('%H:%M ' + '| ' +  '%d' + 'th ' + '%B %Y')
+             strendst = end.strftime('%H:%M ' + '| ' +  '%d' + 'st ' + '%B %Y')
+             strendnd = end.strftime('%H:%M ' + '| ' +  '%d' + 'nd ' + '%B %Y')
+             strendrd = end.strftime('%H:%M ' + '| ' +  '%d' + 'rd ' + '%B %Y')
+             dtend = datetime.strptime(strendth, '%H:%M ' + '| ' + '%d' + 'th ' + '%B %Y')
 
-            if end.day == 1 or end.day == 21 or end.day == 31:
+             if end.day == 1 or end.day == 21 or end.day == 31:
 
-                title = '<p style="font-family:sans-serif; color:Black; font-size: 12px;"> Parking Expiry Date</p>'
+                 title = '<p style="font-family:sans-serif; color:Black; font-size: 12px;"> Parking Expiry Date</p>'
 
-                st.markdown(title, unsafe_allow_html=True)
-                st.info(strendst)
+                 st.markdown(title, unsafe_allow_html=True)
+                 st.info(strendst)
 
-            elif end.day == 2 or end.day == 22:
+             elif end.day == 2 or end.day == 22:
 
-                title = '<p style="font-family:sans-serif; color:Black; font-size: 12px;"> Parking Expiry Date</p>'
+                 title = '<p style="font-family:sans-serif; color:Black; font-size: 12px;"> Parking Expiry Date</p>'
 
-                st.markdown(title, unsafe_allow_html=True)
-                st.info(strendnd)
+                 st.markdown(title, unsafe_allow_html=True)
+                 st.info(strendnd)
 
-            elif end.day == 3 or end.day == 23:
+             elif end.day == 3 or end.day == 23:
 
-                title = '<p style="font-family:sans-serif; color:Black; font-size: 12px;"> Parking Expiry Date</p>'
+                 title = '<p style="font-family:sans-serif; color:Black; font-size: 12px;"> Parking Expiry Date</p>'
 
-                st.markdown(title, unsafe_allow_html=True)
-                st.info(strendrd)
+                 st.markdown(title, unsafe_allow_html=True)
+                 st.info(strendrd)
+                    
+                 epochstart = dtnow.timestamp() / 60
+                 epochend = dtend.timestamp() / 60
+                 sessionstart = epochstart
+                 sessionend = epochend
             
 
-            elif dur == 0:
-                blank = ''
-                st.markdown(blank, unsafe_allow_html=True)
-                durvalid = 0
+       elif dur == 0:
+        st.markdown(blank, unsafe_allow_html=True)
+        durvalid = 0
                 
-            else:
-
-                st.info(strendth)
+       else:
+        st.info(strendth)
 
        
 
-        epochstart = dtnow.timestamp() / 60
-        epochend = dtend.timestamp() / 60
-
-        sessionstart = epochstart
-
-        sessionend = epochend
+        
 
         totalcharge = 0
         vehicle = 0
