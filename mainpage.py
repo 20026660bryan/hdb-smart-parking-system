@@ -265,7 +265,7 @@ def main():
         with left_column:
             st.write('---')
             if checksumvalid == 1:
-                if valid == 1:
+                if valid == 1 and dur != 0:
                     if st.button('Predict', disabled = False):
                         with st.spinner('Give us a moment...'):
                             time.sleep(2)
