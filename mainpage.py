@@ -176,11 +176,9 @@ def main():
              durvalid = 0
         elif dur > 0 and dur < 999999:
             durvalid = 1
-
-        #else:
-        end = dtnow + timedelta(minutes = dur)
-        total_hours = dur // 60
-        total_mins = dur % 60
+            end = dtnow + timedelta(minutes = dur)
+            total_hours = dur // 60
+            total_mins = dur % 60
 
         if dur == 0:
             blank = ''
