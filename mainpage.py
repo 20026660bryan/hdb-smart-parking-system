@@ -209,16 +209,16 @@ def main():
 
                 st.markdown(title, unsafe_allow_html=True)
                 st.info(strendrd)
-
-            else:
-
-                st.info(strendth)
             
 
             elif dur == 0:
                 blank = ''
                 st.markdown(blank, unsafe_allow_html=True)
                 durvalid = 0
+                
+            else:
+
+                st.info(strendth)
 
        
 
