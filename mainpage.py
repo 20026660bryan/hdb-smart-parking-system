@@ -9,7 +9,6 @@ import random
 import time
 import requests
 from streamlit_lottie import st_lottie
-from prediction import KNNparkingprediction, dtparkingprediction, nbparkingprediction, rfparkingprediction, lrparkingprediction, svmparkingprediction, mlpparkingprediction, xgbparkingprediction
 
 
 #--- LOAD MODELS ---
@@ -23,6 +22,38 @@ MLP = pickle.load(open('PKL_files/tunedMLP.pkl', 'rb'))
 XGBoost = pickle.load(open('PKL_files/tunedxgboost.pkl', 'rb'))
 
 
+#--- DEFINE MODELS ---
+def KNNparkingprediction(sessionstart, sessionend, totalcharge, dur, effectivecharge, vehicle):
+    parkingpredictKNN = KNN.predict([[sessionstart, sessionend, totalcharge, dur, effectivecharge, vehicle]])
+    return parkingpredictKNN
+
+def dtparkingprediction(sessionstart, sessionend, totalcharge, dur, effectivecharge, vehicle):
+    parkingpredictdt = DecisionTree.predict([[sessionstart, sessionend, totalcharge, dur, effectivecharge, vehicle]])
+    return parkingpredictdt
+
+def nbparkingprediction(sessionstart, sessionend, totalcharge, dur, effectivecharge, vehicle):
+    parkingpredictnb = NaiveBayes.predict([[sessionstart, sessionend, totalcharge, dur, effectivecharge, vehicle]])
+    return parkingpredictnb
+
+def rfparkingprediction(sessionstart, sessionend, totalcharge, dur, effectivecharge, vehicle):
+    parkingpredictrf = RandomForest.predict([[sessionstart, sessionend, totalcharge, dur, effectivecharge, vehicle]])
+    return parkingpredictrf
+
+def lrparkingprediction(sessionstart, sessionend, totalcharge, dur, effectivecharge, vehicle):
+    parkingpredictlr = LogisticRegression.predict([[sessionstart, sessionend, totalcharge, dur, effectivecharge, vehicle]])
+    return parkingpredictlr
+
+def svmparkingprediction(sessionstart, sessionend, totalcharge, dur, effectivecharge, vehicle):
+    parkingpredictsvm = SVM.predict([[sessionstart, sessionend, totalcharge, dur, effectivecharge, vehicle]])
+    return parkingpredictsvm
+
+def mlpparkingprediction(sessionstart, sessionend, totalcharge, dur, effectivecharge, vehicle):
+    parkingpredictmlp = MLP.predict([[sessionstart, sessionend, totalcharge, dur, effectivecharge, vehicle]])
+    return parkingpredictmlp
+
+def xgbparkingprediction(sessionstart, sessionend, totalcharge, dur, effectivecharge, vehicle):
+    parkingpredictxgb = XGBoost.predict([[sessionstart, sessionend, totalcharge, dur, effectivecharge, vehicle]])
+    return parkingpredictxgb
 
 #--- DEFINE LOTTIE URL---
 def load_lottieurl(url):
@@ -37,7 +68,7 @@ lottie_coding = load_lottieurl("https://assets4.lottiefiles.com/packages/lf20_sw
 #--- MAIN PAGE ---
 def main():
     st.set_page_config(page_title="HDB Smart Parking System", page_icon=":red_car:", layout="wide")
-    
+
     #--- Hide streamlit hamburger menu ---
     hide_menu_style = """
         <style>
@@ -53,7 +84,7 @@ def main():
             st.write('---')
             algorithms = ['Default(XGBoost)', 'K-Nearest Neighbours (KNN)', 'Decision Tree', 'Naive Bayes', 'Random Forest', 'Logistic Regression', 'SVM', 'MLP']
             model = st.selectbox('Select model', algorithms)
-            
+
     #--- CONTAINER FOR INPUT ---
     with st.container():
         st.title('HDB Smart Parking System')
@@ -66,7 +97,7 @@ def main():
     with left_column:
         st.subheader('Enter the following fields')
         license = st.text_input('License Plate Number').upper()
-        
+
         #--- Defining checksum for license plate ---
         checksum = {0: 'A', 1: 'Z', 2: 'Y', 3: 'X', 4: 'U', 5: 'T', 6: 'S', 7: 'R', 8: 'P', 9: 'M', 10: 'L',
                 11: 'K', 12: 'J', 13: 'H', 14: 'G', 15: 'E', 16: 'D', 17: 'C', 18: 'B'}
@@ -121,7 +152,7 @@ def main():
             if checksumvalid == 0 or len(prefix) != 4:
                 errorplate = '<p style="font-family:sans-serif; color:Red; font-size: 12px;">Invalid license plate</p>'
                 st.markdown(errorplate, unsafe_allow_html=True)
-        
+
         #--- Defining regex patterns for motocycle, car and goods vehicle---
         motorcycle_pattern = 'FB[^IO][1-9][0-9]{0,3}[A-E | G-H | J-M | P | R-U | X-Z]'
 
@@ -135,9 +166,9 @@ def main():
         nowhoursandminutes = dtnow.strftime('%H:%M')
 
         dur = st.number_input('Duration (in minutes)', min_value = 0, step = 30)
-        
+
         validdur = 0
-        
+
         #--- Validation check for duration (No need to check < 0 because user cannot input below 0) ---
         if dur > 999999:
              errordur = '<p style="font-family:sans-serif; color:Red; font-size: 12px;">Invalid duration</p>'
@@ -150,7 +181,7 @@ def main():
         end = dtnow + timedelta(minutes = dur)
         total_hours = dur // 60
         total_mins = dur % 60
-        
+
         if dur == 0:
             blank = ''
             st.markdown(blank, unsafe_allow_html=True)
@@ -158,7 +189,7 @@ def main():
         else:
             st.code('{} hours {} minutes'.format(total_hours, total_mins))
         # st.code('{} hours {} minutes'.format(total_hours, total_mins),language="python")
-        
+
         #--- Method to print parking expiry date based on duration input ---
         strendth = end.strftime('%H:%M ' + '| ' +  '%d' + 'th ' + '%B %Y')
         strendst = end.strftime('%H:%M ' + '| ' +  '%d' + 'st ' + '%B %Y')
@@ -201,7 +232,7 @@ def main():
         totalcharge = 0
         vehicle = 0
         valid = 0
-        
+
         #--- Method to check license plate with regex ---
         if re.search(motorcycle_pattern, license):
             if checksumvalid == 1:
@@ -233,7 +264,7 @@ def main():
 
     predict = ''
     parkingtype = ''
-    
+
     #--- CONTAINER FOR OUTPUT---
     with st.container():
         left_column, right_column = st.columns(2)
@@ -243,21 +274,21 @@ def main():
                     if st.button('Predict', disabled = False):
                         with st.spinner('Give us a moment...'):
                             time.sleep(2)
-                            
+
                             #--- XGBOOST ---
                         if model == 'Default(XGBoost)':
-                            xgbparkingprediction(sessionstart, sessionend, totalcharge, dur, effectivecharge, vehicle)
+                            predict = xgbparkingprediction(sessionstart, sessionend, totalcharge, dur, effectivecharge, vehicle)
                             if vehicle == 0:
-                                if parkingpredictxgb == 0:
+                                if predict == 0:
                                     parkingtype = 'Short Term Parking'
-                                elif parkingpredictxgb == 1:
+                                elif predict == 1:
                                     parkingtype = 'Seasonal Parking'
                             elif vehicle == 1:
                                         parkingtype = 'Motorcycle Parking'
                             elif vehicle == 2:
-                                if parkingpredictxgb == 0:
+                                if predict == 0:
                                     parkingtype = 'Short Term Parking'
-                                elif parkingpredictxgb == 1:
+                                elif predict == 1:
                                     parkingtype = 'Seasonal Parking'
 
                             st.write("---")
@@ -298,7 +329,7 @@ def main():
                                     st.success('Lot Number: ' + str(shortterm))
                                     st.success('Parking Fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
                                     st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
-                                    
+
                         #--- KNN ---
                         elif model == 'K-Nearest Neighbours (KNN)':
                             predict = KNNparkingprediction(sessionstart, sessionend, totalcharge, dur, effectivecharge, vehicle)
@@ -408,7 +439,7 @@ def main():
                                     st.success('Lot Number: ' + str(shortterm))
                                     st.success('Parking Fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
                                     st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
- 
+
                         #--- NAIVE BAYES ---
                         elif model == 'Naive Bayes':
                             predict = nbparkingprediction(sessionstart, sessionend, totalcharge, dur, effectivecharge, vehicle)
@@ -463,7 +494,7 @@ def main():
                                     st.success('Lot Number: ' + str(shortterm))
                                     st.success('Parking Fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
                                     st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
-                        
+
                         #--- RANDOM FOREST ---
                         elif model == 'Random Forest':
                             predict = rfparkingprediction(sessionstart, sessionend, totalcharge, dur, effectivecharge, vehicle)
@@ -518,7 +549,7 @@ def main():
                                     st.success('Lot Number: ' + str(shortterm))
                                     st.success('Parking Fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
                                     st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
-                        
+
                         #--- LOGISTIC REGRESSION ---
                         elif model == 'Logistic Regression':
                             predict = lrparkingprediction(sessionstart, sessionend, totalcharge, dur, effectivecharge, vehicle)
@@ -573,7 +604,7 @@ def main():
                                     st.success('Lot Number: ' + str(shortterm))
                                     st.success('Parking Fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
                                     st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
-                                    
+
                         #--- SVM ---
                         elif model == 'SVM':
                             predict = svmparkingprediction(sessionstart, sessionend, totalcharge, dur, effectivecharge, vehicle)
@@ -628,7 +659,7 @@ def main():
                                     st.success('Lot Number: ' + str(shortterm))
                                     st.success('Parking Fees: ' + str('$' + '{:.2f}'.format(totalcharge)))
                                     st.write("[(Learn more about parking rates)](https://www.hdb.gov.sg/car-parks/shortterm-parking/short-term-parking-charges)")
-                        
+
                         #--- MLP ---
                         elif model == 'MLP':
                             predict = mlpparkingprediction(sessionstart, sessionend, totalcharge, dur, effectivecharge, vehicle)
