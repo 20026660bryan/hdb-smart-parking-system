@@ -167,15 +167,15 @@ def main():
 
         dur = st.number_input('Duration (in minutes)', min_value = 0, step = 30)
 
-        validdur = 0
+        durvalid = 0
 
         #--- Validation check for duration (No need to check < 0 because user cannot input below 0) ---
         if dur > 999999:
              errordur = '<p style="font-family:sans-serif; color:Red; font-size: 12px;">Invalid duration</p>'
              st.markdown(errordur, unsafe_allow_html=True)
-             validdur = 0
+             durvalid = 0
         elif dur > 0 and dur < 999999:
-            validdur = 1
+            durvalid = 1
 
         #else:
         end = dtnow + timedelta(minutes = dur)
@@ -185,7 +185,7 @@ def main():
         if dur == 0:
             blank = ''
             st.markdown(blank, unsafe_allow_html=True)
-            validdur = 0
+            durvalid = 0
         else:
             st.code('{} hours {} minutes'.format(total_hours, total_mins))
         # st.code('{} hours {} minutes'.format(total_hours, total_mins),language="python")
@@ -270,7 +270,7 @@ def main():
         left_column, right_column = st.columns(2)
         with left_column:
             st.write('---')
-            if validdur == 1 and valid == 1:
+            if durvalid == 1 and valid == 1:
                     if st.button('Predict', disabled = False):
                         with st.spinner('Give us a moment...'):
                             time.sleep(2)
