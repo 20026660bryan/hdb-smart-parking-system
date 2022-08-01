@@ -182,7 +182,7 @@ def main():
             total_hours = dur // 60
             total_mins = dur % 60
 
-            
+            st.code('{} hours {} minutes'.format(total_hours, total_mins))
             
             strendth = end.strftime('%H:%M ' + '| ' +  '%d' + 'th ' + '%B %Y')
             strendst = end.strftime('%H:%M ' + '| ' +  '%d' + 'st ' + '%B %Y')
@@ -227,8 +227,7 @@ def main():
             blank = ''
             st.markdown(blank, unsafe_allow_html=True)
             durvalid = 0
-        else:
-            st.code('{} hours {} minutes'.format(total_hours, total_mins))
+       
         
 
         
