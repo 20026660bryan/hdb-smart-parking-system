@@ -270,8 +270,8 @@ def main():
         left_column, right_column = st.columns(2)
         with left_column:
             st.write('---')
-            if checksumvalid == 1:
-                if valid == 1 and validdur == 1:
+            if valid == 1:
+                if validdur == 1:
                     if st.button('Predict', disabled = False):
                         with st.spinner('Give us a moment...'):
                             time.sleep(2)
