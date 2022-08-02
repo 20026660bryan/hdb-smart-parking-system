@@ -16,7 +16,7 @@ from streamlit_lottie import st_lottie
 
 
 KNN = pickle.load(open('PKL_files/tunedKNN.pkl', 'rb'))
-@st.cache
+
 DecisionTree = pickle.load(open('PKL_files/tunedDecisionTree.pkl', 'rb'))
 
 NaiveBayes = pickle.load(open('PKL_files/tunedNaiveBayes2.pkl', 'rb'))
