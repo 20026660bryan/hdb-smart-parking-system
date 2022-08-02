@@ -12,13 +12,21 @@ from streamlit_lottie import st_lottie
 
 
 #--- LOAD MODELS ---
+@st.cache
 KNN = pickle.load(open('PKL_files/tunedKNN.pkl', 'rb'))
+@st.cache
 DecisionTree = pickle.load(open('PKL_files/tunedDecisionTree.pkl', 'rb'))
+@st.cache
 NaiveBayes = pickle.load(open('PKL_files/tunedNaiveBayes2.pkl', 'rb'))
+@st.cache
 RandomForest = pickle.load(open('PKL_files/tunedrandomforest.pkl', 'rb'))
+@st.cache
 LogisticRegression = pickle.load(open('PKL_files/tunedlogisticregression.pkl', 'rb'))
+@st.cache
 SVM = pickle.load(open('PKL_files/tunedSVM.pkl', 'rb'))
+@st.cache
 MLP = pickle.load(open('PKL_files/tunedMLP.pkl', 'rb'))
+@st.cache
 XGBoost = pickle.load(open('PKL_files/tunedxgboost.pkl', 'rb'))
 
 
