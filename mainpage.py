@@ -186,7 +186,8 @@ def main():
         elif dur > 0 and dur < 999999:
             durvalid = 1
             
-            end = dtnow + timedelta(minutes = dur, hours + 8)
+            end = dtnow + timedelta(minutes = dur)
+            end = end + timedelta(hours = 8)
             total_hours = dur // 60
             total_mins = dur % 60
 
