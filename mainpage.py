@@ -13,8 +13,7 @@ from streamlit_lottie import st_lottie
 
 #--- LOAD MODELS ---
 
-@st.cache
- KNN = pickle.load(open('PKL_files/tunedKNN.pkl', 'rb'))
+KNN = pickle.load(open('PKL_files/tunedKNN.pkl', 'rb'))
 
 DecisionTree = pickle.load(open('PKL_files/tunedDecisionTree.pkl', 'rb'))
 
