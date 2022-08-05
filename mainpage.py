@@ -187,7 +187,7 @@ def main():
             durvalid = 1
             
             #--- Datetime is UTC time, so hours +8 to convert it to SGT ---
-            end = dtnow + timedelta(minutes = dur
+            end = dtnow + timedelta(minutes = dur)
             total_hours = dur // 60
             total_mins = dur % 60
 
