@@ -205,12 +205,14 @@ def main():
             sessionstart = epochstart
     
             sessionend = epochend
+            
+            title = '<p style="font-family:sans-serif; color:Black; font-size: 12px;"> Parking Expiry Date</p>'
+    
+            st.markdown(title, unsafe_allow_html=True)
     
             if end.day == 1 or end.day == 21 or end.day == 31:
     
-                title = '<p style="font-family:sans-serif; color:Black; font-size: 12px;"> Parking Expiry Date</p>'
-    
-                st.markdown(title, unsafe_allow_html=True)
+                
                 st.info(strendst)
     
             elif end.day == 2 or end.day == 22:
@@ -239,9 +241,7 @@ def main():
        
         
 
-        
-        
-
+       
         totalcharge = 0
         vehicle = 0
         valid = 0
