@@ -187,7 +187,7 @@ def main():
             durvalid = 1
             
             #--- Datetime is UTC time, so hours +8 to convert it to SGT ---
-            end = dtnow + timedelta(minutes = dur, hours = 8)
+            end = dtnow + timedelta(minutes = dur
             total_hours = dur // 60
             total_mins = dur % 60
 
@@ -208,7 +208,7 @@ def main():
     
             if end.day == 1 or end.day == 21 or end.day == 31:
     
-                title = '<p style="font-family:sans-serif; color:Black; font-size: 12px;"> Parking Expiry Date1</p>'
+                title = '<p style="font-family:sans-serif; color:Black; font-size: 12px;"> Parking Expiry Date</p>'
     
                 st.markdown(title, unsafe_allow_html=True)
                 st.info(strendst)
